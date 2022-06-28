@@ -7,34 +7,34 @@ const App = () => {
   const [companyDetails, setCompanyDetails] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const COMPANY_NAME_DETAILS = [
-    { id: "INFY", name: "Infosys" },
-    { id: "MSFT", name: "Microsoft" },
-    { id: "IBM", name: "IBM" },
-  ];
+  // const COMPANY_NAME_DETAILS = [
+  //   { id: "INFY", name: "Infosys" },
+  //   { id: "MSFT", name: "Microsoft" },
+  //   { id: "IBM", name: "IBM" },
+  // ];
 
   useEffect(() => {
     if (companyName !== "") {
-      getCompanyDetails(companyName);
+      getCompanyDetails();
     }
   }, []);
 
   const getCompanyDetails = async () => {
     // setCompanyName(companyId);
-    const companyDetails = COMPANY_NAME_DETAILS.filter(eachCompanyDetails => eachCompanyDetails.name.toLowerCase() === companyName.toLowerCase());
-    if (companyDetails && companyDetails[0] && companyDetails[0].id) {
-      setIsLoading(true);
-      const response = await axios.get(
-        `http://localhost:3000?companyId=${companyDetails[0].id}`
-      );
+    // const companyDetails = COMPANY_NAME_DETAILS.filter(eachCompanyDetails => eachCompanyDetails.name.toLowerCase() === companyName.toLowerCase());
+    // if (companyDetails && companyDetails[0] && companyDetails[0].id) {
+    setIsLoading(true);
+    const response = await axios.get(
+      `http://localhost:3000?companyId=${companyName}`
+    );
 
-      setIsLoading(false);
-      if (response.data && Object.keys(response.data).length > 0) {
-        setCompanyDetails([response.data]);
-      }
+    setIsLoading(false);
+    if (response.data && Object.keys(response.data).length > 0) {
+      setCompanyDetails([response.data]);
     } else {
       alert("No matching company details found!!");
     }
+    // }
   };
 
   return (
